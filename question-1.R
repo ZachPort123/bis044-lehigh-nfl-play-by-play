@@ -17,11 +17,9 @@ winning_plays = run_pass_plays_total$plays[3]
 
 table <- table(run_pass_plays)
 table
-barplot(table, beside=True)
+barplot(table)
 
-run_pass_plays_prob <- run_pass_plays %>%
+freq_table <- run_pass_plays %>%
   group_by(winning_or_losing, play_type) %>%
-  summarise(prob = if_else(winning_or_losing == "losing", n()/losing_plays, if_else(winning_or_losing == "winning", n()/winning_plays, n()/tied_plays))) %>%
-
-table_prob <- table(run_pass_plays_prob)
-table_prob
+  summarise(plays = n()) %>%
+  mutate(prob = if_else(winning_or_losing == "losing", plays/losing_plays, if_else(winning_or_losing == "winning", plays/winning_plays, plays/tied_plays)))
