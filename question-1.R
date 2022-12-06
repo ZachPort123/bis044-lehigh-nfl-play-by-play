@@ -36,5 +36,6 @@ bp <- ggplot(run_pass_plays_freq, aes(x=winning_or_losing, y=prob, fill=play_typ
        caption = "source: nflfastr",
        x = "Winning or Losing",
        y = "Percentage of Plays",
-       color = "Play Type")
+       color = "Play Type") +
+  theme_bw()
 bp
