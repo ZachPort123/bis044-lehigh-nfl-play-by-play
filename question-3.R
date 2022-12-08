@@ -7,7 +7,7 @@ library(ggplotgui)
 pbp_2021 <- load_pbp(2021) # Loading in data
 
 punt_fg_plays <- pbp_2021 %>%
-  filter(play_type == "punt" | play_type == "field_goal") %>%
+  filter(play_type == "punt" | play_type == "field_goal", down == 4) %>%
   mutate(winning_or_losing = if_else(score_differential < 0, "losing",if_else(score_differential > 0, "winning", "tied"))) %>%
   select(play_type, winning_or_losing)
 
@@ -26,7 +26,7 @@ punt_fg_plays_freq <- punt_fg_plays %>%
 
 bp <- ggplot(punt_fg_plays_freq, aes(x=winning_or_losing, y=prob, fill=play_type)) +
   geom_bar(width = .75, stat = "identity") +
-  labs(title = "Likeliness of a team to punt or kick depending on score",
+  labs(title = "Likeliness of a Team to Punt or Kick a FG on 4th Down",
        caption = "source: nflfastr",
        x = "Winning or Losing",
        y = "Plays",) +
