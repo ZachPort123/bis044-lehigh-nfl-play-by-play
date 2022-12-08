@@ -9,5 +9,3 @@ games_2021 %>%
   dplyr::arrange(-cpoe) %>%
   utils::head(5) %>%
   knitr::kable(digits = 1)
-
-
