@@ -10,9 +10,10 @@ pbp_2021 <- load_pbp(2021) # Loading in data
 summary_play_data <- pbp_2021 %>%
   group_by(season_type) %>%
   filter(special == 0) %>%
+  mutate(passing_yards_real = if_else(incomplete_pass == 1, 0, passing_yards)) %>%
   summarise(plays = n(),
             yards_per_play = mean(yards_gained, na.rm = TRUE),
-            yards_per_pass_play = mean(passing_yards, na.rm = TRUE),
+            yards_per_pass_play = mean(passing_yards_real, na.rm = TRUE),
             yards_per_rush_play = mean(rushing_yards, na.rm = TRUE),
             avg_epa = mean(epa, na.rm = TRUE),
             avg_wpa = mean(wpa, na.rm = TRUE),
